@@ -1,13 +1,37 @@
-import React from "react";
-import Button from "@/components/common/Button";
+import React from "react"
+import Button from "@/components/common/Button"
+import { UserProps } from "@/interfaces"
+import UserCard from "@/components/common/UserCard"
 
-const Users: React.FC = () => {
+interface UsersPageProps {
+  posts: UserProps[]
+}
+
+const Users: React.FC<UsersPageProps> = ({ posts }) => {
   return (
     <div className="p-6">
       <h1 className="text-3xl mb-4">Users Page</h1>
       <Button label="Add User" onClick={() => alert("User added!")} />
-    </div>
-  );
-};
 
-export default Users;
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((user) => (
+          <UserCard key={user.id} user={user} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export async function getStaticProps() {
+  const response = await fetch("https://jsonplaceholder.typicode.com/users")
+  const posts: UserProps[] = await response.json()
+
+  return {
+    props: {
+      posts,
+    },
+  }
+}
+
+export default Users
+
