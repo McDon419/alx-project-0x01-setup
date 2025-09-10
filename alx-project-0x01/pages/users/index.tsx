@@ -1,10 +1,10 @@
-import React from "react"
-import Button from "@/components/common/Button"
-import { UserProps } from "@/interfaces"
-import UserCard from "@/components/common/UserCard"
+import React from "react";
+import Button from "@/components/common/Button";
+import { UserProps } from "@/interfaces";
+import UserCard from "@/components/common/UserCard";
 
 interface UsersPageProps {
-  posts: UserProps[]
+  posts: UserProps[];
 }
 
 const Users: React.FC<UsersPageProps> = ({ posts }) => {
@@ -19,19 +19,18 @@ const Users: React.FC<UsersPageProps> = ({ posts }) => {
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export async function getStaticProps() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/users")
-  const posts: UserProps[] = await response.json()
+  const response = await fetch("https://jsonplaceholder.typicode.com/users");
+  const posts: UserProps[] = await response.json();
 
   return {
     props: {
       posts,
     },
-  }
+  };
 }
 
-export default Users
-
+export default Users;
